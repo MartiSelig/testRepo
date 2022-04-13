@@ -33,7 +33,6 @@ export default function FindPlace(props) {
 				append={props.append}
 				foundPlacesList={foundPlacesList}
 				setPlaceString={setPlaceString}
-
 			/>
 		</Modal>
 	);
@@ -66,7 +65,7 @@ function PlaceSearch(props) {
 		<ModalBody>
 			<Col>
 				<Input
-					onChange={(input) => props.setPlaceString(input.target.value)}
+					onChange={(input) => updatePlaceString(input.target.value)}
 					placeholder='restaurants, hotels, car rentals...'
 					data-testid='keyword-input'
 					value={props.placeString}
@@ -75,6 +74,10 @@ function PlaceSearch(props) {
 			</Col>
 		</ModalBody>
 	);
+}
+
+function updatePlaceString(input){
+	props.setPlaceString(input)
 }
 
 function PlaceInfo(props) {
@@ -103,3 +106,4 @@ function FindPlaceFooter(props) {
 		</ModalFooter>
 	);
 }
+
