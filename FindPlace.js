@@ -12,7 +12,7 @@ import {
 import Coordinates from 'coordinate-parser';
 import { reverseGeocode } from '../../../utils/reverseGeocode';
 import { FaFilter } from "react-icons/fa";
-import {SubmitButton} from './helpers';
+import {SubmitButton, PlaceInfo} from './helpers';
 
 export default function FindPlace(props) {
 	const [foundPlacesList, setFoundPlacesList] = useState();
@@ -30,12 +30,6 @@ export default function FindPlace(props) {
 				placeString={placeString}
 				setPlaceString={setPlaceString}
 			/>
-			{/* <FindPlaceFooter
-				//submitButton={props.submitButton}
-				append={props.append}
-				foundPlacesList={foundPlacesList}
-				setPlaceString={setPlaceString}
-			/> */}
 			<SubmitButton
 				title= 'Search'
 				testId= 'find-place-button'
@@ -79,7 +73,7 @@ function PlaceSearch(props) {
 					data-testid='keyword-input'
 					value={props.placeString}
 				/>
-				<PlaceInfo foundPlacesList={props.foundPlacesList} />
+				<PlaceInfo found={props.foundPlacesList} />
 			</Col>
 		</ModalBody>
 	);
@@ -89,23 +83,12 @@ function updatePlaceString(props, input){
 	props.setPlaceString(input);
 }
 
-function PlaceInfo(props) {
-	return (
-		<Collapse isOpen={!!props.foundPlacesList}>
-			<br />
-			{props.foundPlacesList?.formatPlace()}
-		</Collapse>
-	);
-}
-
-// function FindPlaceFooter(props) {
+// function PlaceInfo(props) {
 // 	return (
-// 		<SubmitButton
-// 			title= 'Search'
-// 			testId= 'find-place-button'
-// 			append={props.append}
-// 			foundItems={props.foundPlacesList}
-// 			setString={props.setPlaceString}
-// 		/>
+// 		<Collapse isOpen={!!props.foundPlacesList}>
+// 			<br />
+// 			{props.foundPlacesList?.formatPlace()}
+// 		</Collapse>
 // 	);
 // }
+

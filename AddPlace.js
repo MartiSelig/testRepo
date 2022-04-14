@@ -11,7 +11,7 @@ import {
 } from 'reactstrap';
 import Coordinates from 'coordinate-parser';
 import { reverseGeocode } from '../../../utils/reverseGeocode';
-import {SubmitButton} from './helpers';
+import {SubmitButton, PlaceInfo} from './helpers';
 
 export default function AddPlace(props) {
 	const [foundPlace, setFoundPlace] = useState();
@@ -25,12 +25,6 @@ export default function AddPlace(props) {
 				coordString={coordString}
 				setCoordString={setCoordString}
 			/>
-			{/* <AddPlaceFooter
-				//submitButton={props.submitButton}
-				append={props.append}
-				foundPlace={foundPlace}
-				setCoordString={setCoordString}
-			/> */}
 			<SubmitButton
 				title= 'Add Place'
 				testId = 'add-place-button'
@@ -64,32 +58,21 @@ function PlaceSearch(props) {
 					data-testid='coord-input'
 					value={props.coordString}
 				/>
-				<PlaceInfo foundPlace={props.foundPlace} />
+				<PlaceInfo found={props.foundPlace} />
 			</Col>
 		</ModalBody>
 	);
 }
 
-function PlaceInfo(props) {
-	return (
-		<Collapse isOpen={!!props.foundPlace}>
-			<br />
-			{props.foundPlace?.formatPlace()}
-		</Collapse>
-	);
-}
-
-// function AddPlaceFooter(props) {
+// function PlaceInfo(props) {
 // 	return (
-// 			<SubmitButton
-// 				title= 'Add Place'
-// 				testId = 'add-place-button'
-// 				append={props.append}
-// 				foundItems={props.foundPlace}
-// 				setString={props.setCoordString}
-// 			/>
+// 		<Collapse isOpen={!!props.foundPlace}>
+// 			<br />
+// 			{props.foundPlace?.formatPlace()}
+// 		</Collapse>
 // 	);
 // }
+
 
 async function verifyCoordinates(coordString, setFoundPlace) {
 	try {
