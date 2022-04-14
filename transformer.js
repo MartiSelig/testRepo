@@ -39,19 +39,18 @@ export function latLngToPlace(latLng) {
 // }
 
 function evaluateLatLng(val, type){
+	result = '';
 	if (val > 0 && type === 'lat') {
-		return 'N';
+		result = 'N';
 	}
 	else if(val > 0 && type === 'lng'){
-		return 'E';
+		result = 'E';
 	} 
 	else if (val < 0 && type === 'lat'){
-		return 'S';
+		result = 'S';
 	}
 	else if (val < 0 && type === 'lng'){
-		return 'W';
+		result = 'W';
 	}
-	else {
-		return '';
-	}
+	return result;
 }
