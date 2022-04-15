@@ -1,13 +1,11 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import {
-	Button,
 	Col,
 	Modal,
 	ModalBody,
 	ModalHeader,
 	Input,
 	Collapse,
-	ModalFooter,
 } from 'reactstrap';
 import Coordinates from 'coordinate-parser';
 import { reverseGeocode } from '../../../utils/reverseGeocode';
@@ -17,6 +15,7 @@ import {SubmitButton, PlaceInfo} from './helpers';
 export default function FindPlace(props) {
 	const [foundPlacesList, setFoundPlacesList] = useState();
 	const [placeString, setPlaceString] = useState('');
+	const [checked, setChecked] = useState(false);
 
 	return (
 		<Modal isOpen={props.isOpen} toggle={props.toggleFindPlace}>
@@ -30,6 +29,12 @@ export default function FindPlace(props) {
 				placeString={placeString}
 				setPlaceString={setPlaceString}
 			/>
+
+			<Filter
+				checked={checked}
+				setChecked={setChecked}
+			/>
+
 			<SubmitButton
 				title= 'Search'
 				testId= 'find-place-button'
@@ -45,27 +50,61 @@ function FindPlaceHeader(props) {
 	return (
 		<ModalHeader className='ml-2' toggle={props.toggleFindPlace}>
 			Where would you like to go?
-
-			<Button id="filter" data-testid='find-place-filter-button'
-				onClick={() => {
-					newAlert("Add filter select box")
-				}}
-			>
-				<FaFilter  size={25}/>
-			</Button>
-
 		</ModalHeader>
 	);
 }
 
-function newAlert(message){
-	alert(message);
-}
 
-function PlaceSearch(props) {
+function Filter(props){
+	// const handleChange = () => {
+	// 	setChecked(!checked);
+	//   };
 
 	return (
 		<ModalBody>
+			<Col>
+			<label>
+
+			<Checkbox
+				id="airport"
+			/>
+			Airport &nbsp;
+
+			<Checkbox
+				id="heliport"
+			/>
+			Heliport  &nbsp;
+
+			<Checkbox
+				id="ballonport"
+			/>
+			Balloonport
+
+			</label>
+			</Col>
+		</ModalBody>	
+	);
+}
+
+function Checkbox(props){
+	const handleChange = () => {
+		setChecked(!checked);
+	  };
+	return(
+			<input
+				type="checkbox"
+				id={props.id}
+				onChange={handleChange}
+			/>
+	);
+}
+  
+function PlaceSearch(props) {
+
+
+	return (
+		<ModalBody>
+
 			<Col>
 				<Input
 					onChange={(input) => updatePlaceString(props, input.target.value)}
@@ -82,13 +121,3 @@ function PlaceSearch(props) {
 function updatePlaceString(props, input){
 	props.setPlaceString(input);
 }
-
-// function PlaceInfo(props) {
-// 	return (
-// 		<Collapse isOpen={!!props.foundPlacesList}>
-// 			<br />
-// 			{props.foundPlacesList?.formatPlace()}
-// 		</Collapse>
-// 	);
-// }
-
